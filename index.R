@@ -1,4 +1,4 @@
-
+install.packages("e1071")
 data <- read.csv('./data/population_usa.csv')
 
 library(e1071)
