@@ -10,16 +10,21 @@ attach(data)
 analizeAll <- function(v, name) {
     rnormData <- rnorm(v)
 
+    # empiric func
     plot(density(rnormData), main = paste(name, "(empiric function)"))
 
+    # frequency range
     lines(hist(rnormData, xlab = name, main = paste(name, "(frequency range)"))$counts ~ hist(rnormData, xlab = name, main = paste(name, "(frequency range)"))$mids, col = "green")
 
+    # box-and-whiskers diagram
     boxplot(v, main=paste(name, "(box-and-whiskers diagram)"), horizontal=T, col=c(13)) 
 
+    # підрахувати вибіркові значення: мінімального та максимального спостережень вибірки, медіани, квартилів, децилів
     summaryVal <- c(summary(v))
 
     deciles <- quantile(v, probs = seq(0, 1, 0.1))
 
+    # підрахувати вибіркові значення усіх характеристик положення центру
     meanVal <- c(mean(Population))
 
     geomMean <- c(exp(mean(log(v))))
@@ -48,7 +53,7 @@ analizeAll <- function(v, name) {
 
     centerData <- data.frame(meanVal,geomMean,harmonicMean,mode,medianVal)
 
-
+    # підрахувати вибіркові значення усіх характеристик розсіювання значень
     dispers <- c(var(v))
 
     standartDeviation <- c(sd(v))
@@ -72,6 +77,7 @@ analizeAll <- function(v, name) {
 
     hist(rnormData, main = paste(name, "(skewless and kurtosis)") , xlab = name)
 
+    # writing all to files
     write.csv(kurtosisSkewnessAnalises, file = gsub(" ", "", paste("output/",name,"/kurtosisSkewnessAnalises.csv")))
     write.csv(scattering, file = gsub(" ", "", paste("output/",name,"/scattering.csv")))
     write.csv(summaryVal, file = gsub(" ", "", paste("output/", name, "/summury.csv")))
